@@ -1,0 +1,186 @@
+# Launch this script manually by navigating to http://boxstarter.org/package/url?URL_OF_THIS_SCRIPT
+
+# Prelude
+    Install-WindowsUpdate
+    
+# Directories
+    md -Force C:\bin
+    [Environment]::SetEnvironmentVariable("Path", $env:Path + ";C:\bin", [EnvironmentVariableTarget]::Machine)
+
+# Desktop environment configuration
+    Set-TaskbarOptions -Size Small -Lock -Combine Never
+    Set-WindowsExplorerOptions -EnableShowHiddenFilesFoldersDrives -EnableShowFileExtension
+
+# IDEs
+    cinst kb2919355 # VS 2015 prerequisite
+    cinst visualstudio2015community # Alternatives: visualstudio2015professional, visualstudio2015Enterprise
+    cinst visualstudiocode
+    cinst androidstudio
+
+# IDE enhancements
+    # manual: cinst resharper
+    # manual: cinst dotcover
+    # manual: cinst dotpeek
+
+# Databases
+    # get sql server + management studio with "SQLEXPRWT_x64_ENU.exe" from https://www.microsoft.com/en-us/download/details.aspx?id=53167
+    # manual: mssqlserver2014express
+    # manual: mssqlservermanagementstudio2014express
+    # manual: postgresql
+    # manual: Oracle Database 11g Release 2: http://www.oracle.com/technetwork/database/enterprise-edition/downloads/index.html
+    # manual: SQL Developer
+
+# Common development tools
+    cinst git --package-parameters='"/GitOnlyOnPath /NoShellIntegration"'
+    cinst conemu
+    cinst notepadplusplus --x86 # Only x86 supports plugin manager
+    cinst 7zip
+    cinst winmerge
+    cinst balsamiqmockups3
+    cinst slack
+    cinst mirc
+    cinst putty
+    cinst filezilla
+    cinst nmap
+    cinst whois
+    cinst postman
+    cinst memprofiler
+    # manual: GiffingTool
+    # manual: HHD Hex Editor Neo
+
+# Build tools
+    cinst ruby
+    cinst nodejs
+    cinst nsis
+    cinst chocolatey
+    cinst netfx-4.6.2-devpack
+    cinst dotnetcore-sdk -version 1.0.3
+    # manual: dotnet core VS tools https://www.microsoft.com/net/download/core
+    # NuGet 3.5.0
+    (new-object System.Net.WebClient).DownloadFile("https://dist.nuget.org/win-x86-commandline/v3.5.0/nuget.exe", "C:\bin\nuget.exe")
+    # manual: npm install -g create-react-app
+    # manual: npm install -g npm-check-updates
+
+# Windows enhancements
+    cinst classic-shell -installArgs ADDLOCAL=ClassicStartMenu
+    cinst windirstat
+    cinst sysinternals # includes procexp and procmon
+    cinst rdcman
+    cinst coretemp
+    cinst agentransack
+    cinst listary
+    # manual: Activate listary license
+
+# Applications
+    cinst googlechrome
+        # manual: PrivacyBadger
+        # manual: uBlock Origin
+        # manual: Full page screen capture
+        # manual: React Developer Tools
+    cinst thunderbird
+    cinst foobar2000
+    cinst vlc
+    cinst keepass
+    # manual: truecrypt
+    cinst miktex
+    # manual: Office 365
+    # manual: Affinity Designer
+    # manual: Affinity Photo
+
+# Configuration
+    # ConEmu
+    (new-object System.Net.WebClient).DownloadFile("https://raw.githubusercontent.com/hoflogic/conemu-i3-config/master/conemu.xml", $env:APPDATA + "\ConEmu.xml")
+    # manual: Conemu settings -> Integration -> Register shell integration
+
+    # Visual Studio
+    # manual: Tools -> External Tools
+        # Title: ConEmu
+        # Command: CONEMU_DIRECTORY\conemu64.exe
+        # Arguments: {cmd} -cur_console:n
+        # Initial directory: $(SolutionDir)
+    # manual: Font: Fira Code
+
+    # Android Studio
+    # manual: Font Fira Code + Colours
+    # Copy: C:\Users\root\.AndroidStudio2.2\config\colors and idea.properties
+    # Copy old appdata\roaming\foobar2000 to new for playback stats and playlists.
+    # Set up thunderbird profiles.ini like this: http://www-archive.mozilla.org/support/thunderbird/profile
+            # [Profile0]
+            # Name=root
+            # IsRelative=0
+            # Path=D:\Documents\email\thunderbird-profile
+            # Default=1
+
+# Other manual tasks (some could be automated)
+# run fix win10 privacy
+# set default apps: chrome, foobar, vlc
+# remove ie and windows store from taskbar
+# add android studio, vs, vs code, chrome, conemu to taskbar pinned
+# reload VS settings from backup
+# set hostname
+# remove git gui/git bash shell extensions
+# set chrome default search engine to ddg
+# set up slack logins
+# set up power settings (don't sleep when lid closes, don't turn off screens quickly, ramming speed).
+# "Console lock display timeout" - don't sleep after 1 minute locked: https://www.eightforums.com/tutorials/8267-power-options-add-console-lock-display-off-timeout.html
+# 7-zip associations
+# turn off windows defender (it kills performance)
+#     win+R > gpedit.msc
+#     Computer Configuration > Administrative Templates > Windows Components > Windows Defender
+#     On the right, double-click Turn off Windows Defender
+# set npp show whitespace and default indentation to spaces
+# install "Comment Reflower" from Visual Studio add-ins menu for Alt+/ comment reflowing: http://stackoverflow.com/questions/1837717/comment-reflower-for-visual-studio
+# install "Editor Guidelines" for Visual Studio and set guideline at 80 chars (where the VS cursor position will be reported as "81" in bottom right of screen): https://marketplace.visualstudio.com/items?itemName=PaulHarrington.EditorGuidelines
+# download and extract hugo to c:\bin
+# download and extract rsync to c:\bin https://itefix.net/cwrsync
+# IIS
+# instantwiki
+# web platform installer https://www.microsoft.com/web/downloads/platform.aspx
+# restore RDCMan config
+
+Return
+
+<#>
+
+<script id="template" type="text/template">
+    <!DOCTYPE html>
+    <html lang="en-au">
+    <head>
+        <meta charset="utf-8">
+        <title>Boxstarter script</title>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.1/css/bulma.min.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    </head>
+    <body>
+        <section class="section is-medium">
+            <div class="container">
+                <h3 class="title is-2">Developer <strong>box starter</strong></h3>
+                <div class="notification is-warning">Use Internet Explorer to run this boxstarter script. It's a ClickOnce installer.</div>
+                <nav class="level">
+                    <div class="level-right">
+                        <p class="level-item">
+                            <a class="button is-primary" href="http://boxstarter.org/package/url?{windowHref}">Run</a>
+                        </p>
+                        <p class="level-item">
+                            <a class="button is-primary" href="http://boxstarter.org/package/nr/url?{windowHref}">Run (no reboots)</a>
+                        </p>
+                    </div>
+                </nav>
+                <pre><code>{boxstarterScript}</code></pre>
+            </div>
+        </section>
+    </body>
+    </html>
+</script>
+
+<script>
+    const textContent = document.body.textContent;
+    const boxstarterScript = textContent.substring(0, textContent.indexOf("Return"));
+    const template = document.getElementById("template").textContent;
+    const view = template
+        .replace(/\{boxstarterScript\}/g, boxstarterScript)
+        .replace(/\{windowHref\}/g, window.location.href);
+    document.getElementsByTagName('html')[0].innerHTML = view;
+</script>
+
+<#>

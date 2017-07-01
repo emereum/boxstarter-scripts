@@ -1,0 +1,74 @@
+# Launch this script manually by navigating to http://boxstarter.org/package/url?URL_OF_THIS_SCRIPT
+
+# Desktop environment configuration
+    Set-TaskbarOptions -Size Small -Lock -Combine Never
+    Set-WindowsExplorerOptions -EnableShowHiddenFilesFoldersDrives -EnableShowFileExtension
+
+# Common development tools
+    cinst git --package-parameters='"/GitOnlyOnPath /NoShellIntegration"'
+    cinst conemu
+    cinst notepadplusplus --x86 # Only x86 supports plugin manager
+    cinst 7zip
+
+# Build tools
+    cinst chocolatey
+
+# Windows enhancements
+    cinst classic-shell -installArgs ADDLOCAL=ClassicStartMenu
+    cinst windirstat
+    cinst sysinternals # includes procexp and procmon
+    cinst agentransack
+
+# Applications
+    cinst googlechrome
+
+# Configuration
+    # ConEmu
+    (new-object System.Net.WebClient).DownloadFile("https://raw.githubusercontent.com/hoflogic/conemu-i3-config/master/conemu.xml", $env:APPDATA + "\ConEmu.xml")
+
+Return
+
+<#>
+
+<script id="template" type="text/template">
+    <!DOCTYPE html>
+    <html lang="en-au">
+    <head>
+        <meta charset="utf-8">
+        <title>Boxstarter script</title>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.1/css/bulma.min.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    </head>
+    <body>
+        <section class="section is-medium">
+            <div class="container">
+                <h3 class="title is-2">Server <strong>box starter</strong></h3>
+                <div class="notification is-warning">Use Internet Explorer to run this boxstarter script. It's a ClickOnce installer.</div>
+                <nav class="level">
+                    <div class="level-right">
+                        <p class="level-item">
+                            <a class="button is-primary" href="http://boxstarter.org/package/url?{windowHref}">Run</a>
+                        </p>
+                        <p class="level-item">
+                            <a class="button is-primary" href="http://boxstarter.org/package/nr/url?{windowHref}">Run (no reboots)</a>
+                        </p>
+                    </div>
+                </nav>
+                <pre><code>{boxstarterScript}</code></pre>
+            </div>
+        </section>
+    </body>
+    </html>
+</script>
+
+<script>
+    const textContent = document.body.textContent;
+    const boxstarterScript = textContent.substring(0, textContent.indexOf("Return"));
+    const template = document.getElementById("template").textContent;
+    const view = template
+        .replace(/\{boxstarterScript\}/g, boxstarterScript)
+        .replace(/\{windowHref\}/g, window.location.href);
+    document.getElementsByTagName('html')[0].innerHTML = view;
+</script>
+
+<#>
