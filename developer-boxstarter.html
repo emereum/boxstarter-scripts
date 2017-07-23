@@ -9,7 +9,7 @@
 
 # Desktop environment configuration
     Set-TaskbarOptions -Size Small -Lock -Combine Never
-    Set-WindowsExplorerOptions -EnableShowHiddenFilesFoldersDrives -EnableShowFileExtension
+    Set-WindowsExplorerOptions -EnableShowHiddenFilesFoldersDrives -EnableShowProtectedOSFiles -EnableShowFileExtension
 
 # IDEs
     cinst kb2919355 # VS 2015 prerequisite
@@ -21,6 +21,8 @@
     # manual: cinst resharper
     # manual: cinst dotcover
     # manual: cinst dotpeek
+    Install-ChocolateyVsixPackage 'Comment Reflower' https://visualstudiogallery.msdn.microsoft.com/1290e058-33da-485f-9b75-1891abc947b3/file/174284/5/CommentReflower.vsix
+    Install-ChocolateyVsixPackage 'Editor Guidelines' https://visualstudiogallery.msdn.microsoft.com/da227a0b-0e31-4a11-8f6b-3a149cf2e459/file/66920/14/Editor%20Guidelines.vsix
 
 # Databases
     # get sql server + management studio with "SQLEXPRWT_x64_ENU.exe" from https://www.microsoft.com/en-us/download/details.aspx?id=53167
@@ -29,6 +31,14 @@
     # manual: postgresql
     # manual: Oracle Database 11g Release 2: http://www.oracle.com/technetwork/database/enterprise-edition/downloads/index.html
     # manual: SQL Developer
+
+# Application servers
+    cinst IIS-WebServerRole -source WindowsFeatures
+
+# Application server enhancements
+    # .NET Core windows hosting bundle 1.0.4 LTS (1.1.1 current)
+    cinst dotnetcore-windowshosting --version 1.1.1
+    cinst webpi
 
 # Common development tools
     cinst git --package-parameters='"/GitOnlyOnPath /NoShellIntegration"'
@@ -45,6 +55,8 @@
     cinst whois
     cinst postman
     cinst memprofiler
+    cinst terraform
+    cinst rdcman
     # manual: GiffingTool
     # manual: HHD Hex Editor Neo
 
@@ -118,7 +130,6 @@
 # add android studio, vs, vs code, chrome, conemu to taskbar pinned
 # reload VS settings from backup
 # set hostname
-# remove git gui/git bash shell extensions
 # set chrome default search engine to ddg
 # set up slack logins
 # set up power settings (don't sleep when lid closes, don't turn off screens quickly, ramming speed).
@@ -129,11 +140,9 @@
 #     Computer Configuration > Administrative Templates > Windows Components > Windows Defender
 #     On the right, double-click Turn off Windows Defender
 # set npp show whitespace and default indentation to spaces
-# install "Comment Reflower" from Visual Studio add-ins menu for Alt+/ comment reflowing: http://stackoverflow.com/questions/1837717/comment-reflower-for-visual-studio
-# install "Editor Guidelines" for Visual Studio and set guideline at 80 chars (where the VS cursor position will be reported as "81" in bottom right of screen): https://marketplace.visualstudio.com/items?itemName=PaulHarrington.EditorGuidelines
+# set "Editor Guidelines" for Visual Studio at 80 chars (where the VS cursor position will be reported as "81" in bottom right of screen)
 # download and extract hugo to c:\bin
 # download and extract rsync to c:\bin https://itefix.net/cwrsync
-# IIS
 # instantwiki
 # web platform installer https://www.microsoft.com/web/downloads/platform.aspx
 # restore RDCMan config

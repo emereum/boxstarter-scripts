@@ -2,7 +2,12 @@
 
 # Desktop environment configuration
     Set-TaskbarOptions -Size Small -Lock -Combine Never
-    Set-WindowsExplorerOptions -EnableShowHiddenFilesFoldersDrives -EnableShowFileExtension
+    Set-WindowsExplorerOptions -EnableShowHiddenFilesFoldersDrives -EnableShowProtectedOSFiles -EnableShowFileExtension
+
+# Application servers
+    # IIS and dotnet core hosting for 1.0.4 LTS (1.1.1 current)
+    cinst IIS-WebServerRole -source WindowsFeatures
+    cinst dotnetcore-windowshosting --version 1.1.1
 
 # Common development tools
     cinst git --package-parameters='"/GitOnlyOnPath /NoShellIntegration"'
