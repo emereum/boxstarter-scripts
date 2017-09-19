@@ -12,8 +12,7 @@
     Set-WindowsExplorerOptions -EnableShowHiddenFilesFoldersDrives -EnableShowProtectedOSFiles -EnableShowFileExtension
 
 # IDEs
-    cinst kb2919355 # VS 2015 prerequisite
-    cinst visualstudio2015community # Alternatives: visualstudio2015professional, visualstudio2015Enterprise
+    cinst visualstudio2017community # Alternatives: visualstudio2017professional, visualstudio2017enterprise
     cinst visualstudiocode
     cinst androidstudio
 
@@ -36,8 +35,7 @@
     cinst IIS-WebServerRole -source WindowsFeatures
 
 # Application server enhancements
-    # .NET Core windows hosting bundle 1.0.4 LTS (1.1.1 current)
-    cinst dotnetcore-windowshosting --version 1.1.1
+    cinst dotnetcore-windowshosting --version 2.0.0
     cinst webpi
 
 # Common development tools
