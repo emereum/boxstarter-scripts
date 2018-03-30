@@ -17,25 +17,23 @@
     cinst androidstudio
 
 # IDE enhancements
-    # manual: cinst resharper
-    # manual: cinst dotcover
-    # manual: cinst dotpeek
+    cinst resharper-ultimate-all
     Install-ChocolateyVsixPackage 'Comment Reflower' https://visualstudiogallery.msdn.microsoft.com/1290e058-33da-485f-9b75-1891abc947b3/file/174284/5/CommentReflower.vsix
     Install-ChocolateyVsixPackage 'Editor Guidelines' https://visualstudiogallery.msdn.microsoft.com/da227a0b-0e31-4a11-8f6b-3a149cf2e459/file/66920/14/Editor%20Guidelines.vsix
 
 # Databases
-    # get sql server + management studio with "SQLEXPRWT_x64_ENU.exe" from https://www.microsoft.com/en-us/download/details.aspx?id=53167
-    # manual: mssqlserver2014express
-    # manual: mssqlservermanagementstudio2014express
-    # manual: postgresql
+    # manual: PostgreSQL: https://www.postgresql.org/
+    # manual: SQL Server 2017: http://downloadsqlserverexpress.com/
     # manual: Oracle Database 11g Release 2: http://www.oracle.com/technetwork/database/enterprise-edition/downloads/index.html
-    # manual: SQL Developer
+
+# Database tools
+    cinst datagrip
+    cinst sql-server-management-studio
 
 # Application servers
     cinst IIS-WebServerRole -source WindowsFeatures
 
-# Application server enhancements
-    cinst dotnetcore-windowshosting --version 2.0.0
+# Application server tools
     cinst webpi
 
 # Common development tools
@@ -49,27 +47,38 @@
     cinst mirc
     cinst putty
     cinst filezilla
+    cinst cyberduck
     cinst nmap
     cinst whois
     cinst postman
     cinst memprofiler
     cinst terraform
     cinst rdcman
-    # manual: GiffingTool
-    # manual: HHD Hex Editor Neo
+    cinst screentogif
+    cinst hugo
+    # HHD Hex Editor Neo 6 (installs asynchronously)
+    (new-object System.Net.WebClient).DownloadFile("http://www.hhdsoftware.com/Download/hex-editor-neo.exe", "$env:temp\hex-editor-neo.exe")
+    &"$env:temp\hex-editor-neo.exe" -silent
 
-# Build tools
+# Common build tools
     cinst ruby
     cinst nodejs
     cinst nsis
     cinst chocolatey
-    cinst netfx-4.6.2-devpack
-    cinst dotnetcore-sdk -version 1.0.3
-    # manual: dotnet core VS tools https://www.microsoft.com/net/download/core
-    # NuGet 3.5.0
-    (new-object System.Net.WebClient).DownloadFile("https://dist.nuget.org/win-x86-commandline/v3.5.0/nuget.exe", "C:\bin\nuget.exe")
     # manual: npm install -g create-react-app
     # manual: npm install -g npm-check-updates
+
+    # Specific dotnet build toolchains are not included in this script. It is
+    # expected that projects have their own dev environment setup scripts. This
+    # decision was made to simplify maintenance of this script and to reduce the
+    # likelihood of installing outdated or unused dotnet build toolchains. In
+    # the past, this setup script would include things like:
+    #
+    #     cinst netfx-4.6.2-devpack
+    #     cinst dotnetcore-sdk -version 1.0.3
+    #     manual: dotnet core VS tools https://www.microsoft.com/net/download/core
+    #     NuGet 3.5.0
+    #     (new-object System.Net.WebClient).DownloadFile("https://dist.nuget.org/win-x86-commandline/v3.5.0/nuget.exe", "C:\bin\nuget.exe")
 
 # Windows enhancements
     cinst classic-shell -installArgs ADDLOCAL=ClassicStartMenu
@@ -91,7 +100,6 @@
     cinst foobar2000
     cinst vlc
     cinst keepass
-    # manual: truecrypt
     cinst miktex
     # manual: Office 365
     # manual: Affinity Designer
@@ -122,7 +130,6 @@
             # Default=1
 
 # Other manual tasks (some could be automated)
-# run fix win10 privacy
 # set default apps: chrome, foobar, vlc
 # remove ie and windows store from taskbar
 # add android studio, vs, vs code, chrome, conemu to taskbar pinned
@@ -139,10 +146,8 @@
 #     On the right, double-click Turn off Windows Defender
 # set npp show whitespace and default indentation to spaces
 # set "Editor Guidelines" for Visual Studio at 80 chars (where the VS cursor position will be reported as "81" in bottom right of screen)
-# download and extract hugo to c:\bin
 # download and extract rsync to c:\bin https://itefix.net/cwrsync
 # instantwiki
-# web platform installer https://www.microsoft.com/web/downloads/platform.aspx
 # restore RDCMan config
 
 Return
