@@ -17,9 +17,9 @@
     cinst androidstudio
 
 # IDE enhancements
-    # Manual: resharper-ultimate-all
-    Install-ChocolateyVsixPackage 'Comment Reflower' https://visualstudiogallery.msdn.microsoft.com/1290e058-33da-485f-9b75-1891abc947b3/file/174284/5/CommentReflower.vsix
-    Install-ChocolateyVsixPackage 'Editor Guidelines' https://visualstudiogallery.msdn.microsoft.com/da227a0b-0e31-4a11-8f6b-3a149cf2e459/file/66920/14/Editor%20Guidelines.vsix
+    # Manual (does not find VS installation): resharper-ultimate-all
+    # Manual (until this cmdlet is fixed): Install-ChocolateyVsixPackage 'Comment Reflower' https://visualstudiogallery.msdn.microsoft.com/1290e058-33da-485f-9b75-1891abc947b3/file/174284/5/CommentReflower.vsix
+    # Manual (until this cmdlet is fixed): Install-ChocolateyVsixPackage 'Editor Guidelines' https://visualstudiogallery.msdn.microsoft.com/da227a0b-0e31-4a11-8f6b-3a149cf2e459/file/66920/14/Editor%20Guidelines.vsix
 
 # Databases
     # manual: PostgreSQL: https://www.postgresql.org/
@@ -28,7 +28,7 @@
 
 # Database tools
     cinst datagrip
-    cinst sql-server-management-studio
+    # Manual (fails with installation error code 1626): cinst sql-server-management-studio
 
 # Application servers
     cinst IIS-WebServerRole -source WindowsFeatures
